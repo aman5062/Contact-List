@@ -1,0 +1,155 @@
+<style type="text/css">
+	.name{
+		width: 140px;
+		background-color: lightgrey;
+	}
+	.contact{
+		width: 140px;
+		background-color: lightgrey;
+	}
+	.table{
+		background-color: lightgrey;
+	}
+	.allinput{
+		background-color: lightgrey;
+	}
+</style>
+<script type="text/javascript">
+	
+	var row = 0;
+	var nums = 1;
+	//Save button
+	function consave(el) {
+		debugger;
+ 		var editrow = el.attributes.editrow.value;
+		var name = document.getElementById('name').value;
+		var contact = document.getElementById('contact').value;
+		var nameBox = "<input type='text' id='txtname"+row+"'class=name value='"+name+"' readonly oldvalue=''>";
+		var contactBox = "<input type='text' id='txtcontact"+row+"'class=contact value='"+contact+"' readonly oldvalue=''>";
+		var Edit = "<input type='button' value='Edit' onclick='ed(this)' id='ed"+row+"' class='"+row+"'>";
+		var Delete = "<input type='button' value='Delete' onclick='delet(this)' id='dell"+row+"' class='"+row+"'>";
+		var Save = "<input type='button' value='Save' onclick='cosave(this)' id='save' class='"+row+"' hidden='true'>";
+		var Cancel = "<input type='button' value='Cancel' onclick='Cancel(this)' id='cancel"+row+"' class='"+row+"' hidden='true'>";
+
+if(editrow==undefined || editrow=="")
+{
+		var tabb = document.getElementById('tabb').getElementsByTagName('tbody')[0];
+
+		var newrow = tabb.insertRow(row);
+		var cel0 = newrow.insertCell(0);
+		var cel1 = newrow.insertCell(1);
+		var cel2 = newrow.insertCell(2);
+		var cel3 = newrow.insertCell(3);
+		
+		cel0.innerHTML = nums;
+		cel1.innerHTML = nameBox;
+		cel2.innerHTML = contactBox;
+		cel3.innerHTML = Edit+Delete+Save+Cancel;
+
+		row++;
+		nums++;
+	}
+	else
+	{
+		var ainp = document.getElementsByTagName('tbody')[0].children.length;
+		for(i=0;i<ainp; i++){
+		debugger;
+		   if(document.getElementsByTagName('tbody')[0].children[i].children[0].innerText==editrow){
+			document.getElementsByTagName('tbody')[0].children[i].children[1].children[0].value = document.getElementById('name').value;
+			document.getElementsByTagName('tbody')[0].children[i].children[2].children[0].value = document.getElementById('contact').value;
+			break;
+		  }
+		}
+	}
+		document.getElementById('name').value = "";
+		document.getElementById('contact').value = "";
+		document.getElementById("butt").attributes["editRow"].value="";
+	}
+	function cosave(vab) {
+		debugger;
+	vab.parentElement.parentElement.children[1].children[0].setAttribute("readonly","true");
+	vab.parentElement.parentElement.children[2].children[0].setAttribute("readonly","true");
+	vab.parentElement.parentElement.children[3].children[2].hidden=true;
+	vab.parentElement.parentElement.children[3].children[3].hidden=true;
+	vab.parentElement.parentElement.children[3].children[0].hidden=false;
+	vab.parentElement.parentElement.children[3].children[1].hidden=false;
+	document.getElementById('all').hidden=false;
+	var val1 = vab.parentElement.parentElement.children[1].children[0].value;
+	var val2 = vab.parentElement.parentElement.children[2].children[0].value;
+	vab.parentElement.parentElement.children[1].children[0].value = val1
+	vab.parentElement.parentElement.children[2].children[0].value = val2
+	document.getElementById("butt").attributes["editRow"].value="";
+	}
+	//Edit Button
+	function ed(elem) {
+		debugger;
+		//document.getElementById('name').placeholder = "Enter Your name";
+		//document.getElementById('contact').placeholder = "Enter Your New Contact";
+		document.getElementById("butt").attributes["editRow"].value=elem.parentElement.parentElement.children[0].innerText;
+		document.getElementById('name').value =  elem.parentElement.parentElement.children[1].children[0].value;
+		document.getElementById('contact').value =  elem.parentElement.parentElement.children[2].children[0].value;
+		elem.parentElement.parentElement.children[1].children[0].removeAttribute("readonly");
+		elem.parentElement.parentElement.children[2].children[0].removeAttribute("readonly");
+		elem.parentElement.parentElement.children[3].children[0].hidden=true;
+		elem.parentElement.parentElement.children[3].children[1].hidden=true;
+		elem.parentElement.parentElement.children[3].children[2].hidden=false;
+		elem.parentElement.parentElement.children[3].children[3].hidden=false;
+		document.getElementById('all').hidden=true;
+		elem.parentElement.parentElement.children[1].children[0].attributes["oldvalue"].value = elem.parentElement.parentElement.children[1].children[0].value;
+		elem.parentElement.parentElement.children[2].children[0].attributes["oldvalue"].value = elem.parentElement.parentElement.children[2].children[0].value;
+		
+	}
+	function Cancel(kel) {debugger;
+		var name1 = kel.parentElement.parentElement.children[1].children[0].attributes["oldvalue"].value;
+		var contact1 = kel.parentElement.parentElement.children[2].children[0].attributes["oldvalue"].value;
+		kel.parentElement.parentElement.children[1].children[0].value = name1;
+		kel.parentElement.parentElement.children[2].children[0].value = contact1;
+		kel.parentElement.parentElement.children[3].children[0].hidden=false;
+		kel.parentElement.parentElement.children[3].children[1].hidden=false;
+		kel.parentElement.parentElement.children[3].children[2].hidden=true;
+		kel.parentElement.parentElement.children[3].children[3].hidden=true;
+		kel.parentElement.parentElement.children[1].children[0].setAttribute("readonly","true");
+		kel.parentElement.parentElement.children[2].children[0].setAttribute("readonly","true");
+		document.getElementById('all').hidden=false;
+	}
+	//Search Box
+	function sbox() {
+		var manualInput = document.getElementById('searchbox').value;
+		var ainp = document.getElementsByTagName('tbody')[0].children.length;
+		for(i=0;i<ainp; i++){
+		   for (var j = 1; j<3; j++) {
+			if(document.getElementsByTagName('tbody')[0].children[i].children[j].children[0].value==manualInput){
+				document.getElementsByTagName('tbody')[0].children[i].style.background="skyblue";
+				break;
+			}
+			else
+			{
+				document.getElementsByTagName('tbody')[0].children[i].style.background="inherit";
+			}
+		}
+	}
+}
+function delet(elem) {
+	debugger;
+elem.parentElement.parentElement.remove();
+row--;
+}
+</script>
+<body bgcolor="gray"><center><div id="all">Search Here
+	<input type="text" id="searchbox"  class="allinput" ondragleave="sbox()"><br><br>
+	<input type="button" value="Search"  onclick="sbox()"><br><br><br>
+	Name : <input type="text" id="name" class="allinput">
+	Contact: <input type="text" id="contact" class="allinput">
+	<input type="submit" value="Save" id="butt" onclick="consave(this)" editrow=""></div><br><br>
+	<table border="2" width="500" id="tabb" class="table">
+		<thead>
+		<tr>
+			<th>No.</th>
+			<th>Name</th>
+			<th>Contact</th>
+			<th>Edit</th>
+		</tr>
+		</thead>
+		<tbody></tbody>
+	</table></center>
+</body>
