@@ -1,3 +1,7 @@
+<html>
+<head>
+	<title>Save Contact</title>
+</head>
 <style type="text/css">
 	.name{
 		width: 140px;
@@ -24,8 +28,8 @@
  		var editrow = el.attributes.editrow.value;
 		var name = document.getElementById('name').value;
 		var contact = document.getElementById('contact').value;
-		var nameBox = "<input type='text' id='txtname"+row+"'class=name value='"+name+"' readonly oldvalue=''>";
-		var contactBox = "<input type='text' id='txtcontact"+row+"'class=contact value='"+contact+"' readonly oldvalue=''>";
+		var nameBox = "<input type='text' id='txtname"+row+"'class='name' placeholder='No Name' value='"+name+"' readonly oldvalue=''>";
+		var contactBox = "<input type='text' id='txtcontact"+row+"'class='contact' placeholder='No Contact Number' value='"+contact+"' readonly oldvalue=''>";
 		var Edit = "<input type='button' value='Edit' onclick='ed(this)' id='ed"+row+"' class='"+row+"'>";
 		var Delete = "<input type='button' value='Delete' onclick='delet(this)' id='dell"+row+"' class='"+row+"'>";
 		var Save = "<input type='button' value='Save' onclick='cosave(this)' id='save' class='"+row+"' hidden='true'>";
@@ -86,8 +90,6 @@ if(editrow==undefined || editrow=="")
 		//document.getElementById('name').placeholder = "Enter Your name";
 		//document.getElementById('contact').placeholder = "Enter Your New Contact";
 		document.getElementById("butt").attributes["editRow"].value=elem.parentElement.parentElement.children[0].innerText;
-		document.getElementById('name').value =  elem.parentElement.parentElement.children[1].children[0].value;
-		document.getElementById('contact').value =  elem.parentElement.parentElement.children[2].children[0].value;
 		elem.parentElement.parentElement.children[1].children[0].removeAttribute("readonly");
 		elem.parentElement.parentElement.children[2].children[0].removeAttribute("readonly");
 		elem.parentElement.parentElement.children[3].children[0].hidden=true;
@@ -113,12 +115,12 @@ if(editrow==undefined || editrow=="")
 		document.getElementById('all').hidden=false;
 	}
 	//Search Box
-	function sbox() {
+	function sbox() {debugger;
 		var manualInput = document.getElementById('searchbox').value;
 		var ainp = document.getElementsByTagName('tbody')[0].children.length;
 		for(i=0;i<ainp; i++){
 		   for (var j = 1; j<3; j++) {
-			if(document.getElementsByTagName('tbody')[0].children[i].children[j].children[0].value==manualInput){
+			if(document.getElementsByTagName('tbody')[0].children[i].children[j].children[0].value.toLowerCase().indexOf(manualInput.toLowerCase())!=-1){
 				document.getElementsByTagName('tbody')[0].children[i].style.background="skyblue";
 				break;
 			}
@@ -135,11 +137,11 @@ elem.parentElement.parentElement.remove();
 row--;
 }
 </script>
-<body bgcolor="gray"><center><div id="all">Search Here
-	<input type="text" id="searchbox"  class="allinput" ondragleave="sbox()"><br><br>
+<body bgcolor="gray"><center><div id="all">Search
+	<input type="text" id="searchbox" placeholder="Search Here" class="allinput" oninput="sbox()"><br><br>
 	<input type="button" value="Search"  onclick="sbox()"><br><br><br>
-	Name : <input type="text" id="name" class="allinput">
-	Contact: <input type="text" id="contact" class="allinput">
+	Name : <input type="text" id="name" class="allinput" placeholder="Name">
+	Contact: <input type="text" id="contact" class="allinput" placeholder="Contact">
 	<input type="submit" value="Save" id="butt" onclick="consave(this)" editrow=""></div><br><br>
 	<table border="2" width="500" id="tabb" class="table">
 		<thead>
@@ -153,3 +155,4 @@ row--;
 		<tbody></tbody>
 	</table></center>
 </body>
+</html>
