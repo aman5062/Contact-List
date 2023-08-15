@@ -2,6 +2,8 @@
 <head>
 	<title>Save Contact</title>
 </head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style type="text/css">
 	.name{
 		width: 140px;
@@ -33,17 +35,14 @@
 		var Delete = "<input type='button' value='Delete' onclick='delet(this)' id='dell"+row+"' class='"+row+"'>";
 		var Save = "<input type='button' value='Save' onclick='cosave(this)' id='save' class='"+row+"' hidden='true'>";
 		var Cancel = "<input type='button' value='Cancel' onclick='Cancel(this)' id='cancel"+row+"' class='"+row+"' hidden='true'>";
-
-if(editrow==undefined || editrow=="")
-{
+		if(editrow==undefined || editrow=="")
+		{
 		var tabb = document.getElementById('tabb').getElementsByTagName('tbody')[0];
-
 		var newrow = tabb.insertRow(row);
 		var cel0 = newrow.insertCell(0);
 		var cel1 = newrow.insertCell(1);
 		var cel2 = newrow.insertCell(2);
 		var cel3 = newrow.insertCell(3);
-		
 		cel0.innerHTML = nums;
 		cel1.innerHTML = nameBox;
 		cel2.innerHTML = contactBox;
